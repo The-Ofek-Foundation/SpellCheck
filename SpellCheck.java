@@ -11,9 +11,11 @@ public class SpellCheck {
 
 	public Word[] words;
 	public double startTime;
+	private boolean output;
 
-	public SpellCheck(String dictLoc) throws IOException {
 
+	public SpellCheck(String dictLoc, boolean output) throws IOException {
+		this.output = output;
 		dos("Counting words");
 		File dict = new File(dictLoc);
 		LineNumberReader lnr = new LineNumberReader(new FileReader(dict));
@@ -31,9 +33,13 @@ public class SpellCheck {
 		done("processed");
 	}
 
+	public SpellCheck(String dictLoc) throws IOException {
+		this(dictLoc, true);
+	}
+
 	public static void main(String... pumpkins) throws IOException {
 		System.out.println();
-		SpellCheck sc = new SpellCheck(pumpkins[0]);
+		SpellCheck sc = new SpellCheck("words.txt");
 		sc.run();
 		System.out.println();
 	}
@@ -76,7 +82,7 @@ public class SpellCheck {
 	public String fixTypo(String str) {
 		Word typo = new Word(str);
 		if (wordExists(typo))
-			return typo.word;
+			return str;
 
 		ArrayList<Word> matches = new ArrayList<Word>();
 
@@ -213,7 +219,7 @@ public class SpellCheck {
 	public boolean analyzeMatches(ArrayList<Word> matches) {
 		if (matches.size() == 0)
 			return false;
-		if (matches.size() == 1)
+		if (matches.size() == 1 && output)
 			System.out.printf("\n\tYou probably mean: \'%s\'\n\n", matches.get(0));
 		return true;
 	}
@@ -272,6 +278,7 @@ public class SpellCheck {
 	}
 
 	public void dos(String something) {
+		if (!output) return;
 		System.out.printf("%-35s", something + "...");
 		startTime = System.nanoTime();
 	}
@@ -279,6 +286,7 @@ public class SpellCheck {
 	public void done() { done("done"); }
 
 	public void done(String message) {
+		if (!output) return;
 		double elapsedTime = (System.nanoTime() - startTime) / 1E9;
 		System.out.printf("%s in %.3f seconds\n", message, elapsedTime);
 	}

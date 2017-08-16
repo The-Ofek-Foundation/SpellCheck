@@ -2,6 +2,6 @@
 
 ### Usage
 
- > java SpellCheck words.txt
+ > java SpellCheck
 
 Feel free to add your own dictionary, but for optimal results, sort the entries by popularity.
