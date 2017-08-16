@@ -132,9 +132,6 @@ public class SpellCheck {
 		if (ideal)
 			return score;
 
-		if (w1.word.equals("bicycle"))
-			System.out.println(score);
-
 		if (w1.word.length() == w2.word.length())
 			score += 0.5;
 
