@@ -73,6 +73,24 @@ public class SpellCheck {
 		} while (!typo.equals("quit"));
 	}
 
+	public String fixTypo(String str) {
+		Word typo = new Word(str);
+		if (wordExists(typo))
+			return typo.word;
+
+		ArrayList<Word> matches = new ArrayList<Word>();
+
+		findMatches(matches, typo);
+		if (matches.size() == 1)
+			return matches.get(0).word;
+
+		filterMatches(matches, typo);
+		if (matches.size() == 1)
+			return matches.get(0).word;
+
+		return matches.get(0).word;
+	}
+
 	public boolean filterMatches(ArrayList<Word> matches, Word typo) {
 		filterByScore(matches, typo);
 		if (analyzeMatches(matches))
