@@ -140,8 +140,16 @@ public class SpellCheck {
 
 	public boolean score(String[] ws) {
 		int max = 0, im = -1, am = -1, l1 = ws[0].length(), l2 = ws[1].length();
-		for (int i = 0; i < l1; i++)
-			for (int a = 0; a < l2; a++) {
+		int i1 = 0, i2;
+		for (int i = 0; i < l1; i++) {
+			i2 = 0;
+			if (ws[0].charAt(i) == '[')
+				i1++;
+			else for (int a = 0; a < l2; a++) {
+				if (ws[1].charAt(a) == ']')
+					i2++;
+				if (i2 < i1) continue;
+				if (i2 > i1) break;
 				int b;
 				for (b = 0; i + b < l1 && a + b < l2
 					&& ws[0].charAt(i + b) == ws[1].charAt(a + b)
@@ -152,6 +160,7 @@ public class SpellCheck {
 					am = a;
 				}
 			}
+		}
 		if (max < 2)
 			return false;
 		ws[0] = ws[0].substring(0, im) + "[" + ws[0].substring(im + max);
@@ -174,7 +183,7 @@ public class SpellCheck {
 	}
 
 	public boolean findMatches(ArrayList<Word> matches, Word typo) {
-		addIdealMatches(matches, typo);
+		addMatches(matches, typo, "S");
 		if (analyzeMatches(matches))
 			return true;
 
@@ -182,7 +191,7 @@ public class SpellCheck {
 		if (analyzeMatches(matches))
 			return true;
 
-		addMatches(matches, typo, "S");
+		addIdealMatches(matches, typo);
 		if (analyzeMatches(matches))
 			return true;
 

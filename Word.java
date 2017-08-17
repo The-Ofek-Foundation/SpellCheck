@@ -49,20 +49,15 @@ class WordHelper {
 	public static String simplifyWord(String word) {
 
 		// reduce characters (y -> i, z -> s)
-		String simple = "";
-		for (int i = 0; i < word.length(); i++) {
-			char curr = word.charAt(i);
-			if (curr == 'y')
-				simple += 'i';
-			else if (curr == 'z')
-				simple += 's';
-			else simple += curr;
-		}
-		word = simple;
+		word = word.replace('y', 'i');
+		word = word.replace('z', 's');
+		word = word.replace("ght", "ghte");
+		word = word.replace("kn", "n");
+		word = word.replace("gn", "n");
 
 		// remove consecutive characters
 		char lastChar = word.charAt(0);
-		simple = lastChar + "";
+		String simple = lastChar + "";
 		for (int i = 1; i < word.length(); i++) {
 			char c = word.charAt(i);
 			if (c == lastChar)
@@ -70,6 +65,9 @@ class WordHelper {
 			lastChar = c;
 			simple += lastChar;
 		}
+
+		if (simple.charAt(simple.length() - 1) == 'e')
+			simple = simple.substring(0, simple.length() - 1);
 		return simple;
 	}
 
