@@ -56,6 +56,7 @@ class WordHelper {
 		word = word.replace("gn", "n");
 		word = word.replace("ck", "k");
 		word = word.replace("ce", "se");
+		word = word.replace("ph", "fsa");
 
 		// remove consecutive characters
 		char lastChar = word.charAt(0);
@@ -85,7 +86,7 @@ class WordHelper {
 		boolean cons = false;
 		for (int i = 0; i < word.length(); i++) {
 			char curr = word.charAt(i);
-			if ((VOWELS.indexOf(curr) != -1) == vowel)
+			if ((VOWELS.indexOf(curr) != -1) == vowel && curr != '{' && curr !='}')
 				if (!cons) {
 					simple += c;
 					cons = true;

@@ -37,6 +37,13 @@ public class SpellCheck {
 		this(dictLoc, true);
 	}
 
+	public Word[] wordCopy() {
+		Word[] tmp = new Word[words.length];
+		for (int i = 0; i < tmp.length; i++)
+			tmp[i] = words[i];
+		return tmp;
+	}
+
 	public static void main(String... pumpkins) throws IOException {
 		System.out.println();
 		SpellCheck sc = new SpellCheck("words.txt");
