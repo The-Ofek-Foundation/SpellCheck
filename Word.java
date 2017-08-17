@@ -54,6 +54,8 @@ class WordHelper {
 		word = word.replace("ght", "ghte");
 		word = word.replace("kn", "n");
 		word = word.replace("gn", "n");
+		word = word.replace("ck", "k");
+		word = word.replace("ce", "se");
 
 		// remove consecutive characters
 		char lastChar = word.charAt(0);
@@ -66,8 +68,6 @@ class WordHelper {
 			simple += lastChar;
 		}
 
-		if (simple.charAt(simple.length() - 1) == 'e')
-			simple = simple.substring(0, simple.length() - 1);
 		return simple;
 	}
 
