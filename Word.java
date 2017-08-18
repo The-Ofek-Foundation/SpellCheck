@@ -57,6 +57,7 @@ class WordHelper {
 		word = word.replace("ck", "k");
 		word = word.replace("ce", "se");
 		word = word.replace("ph", "fsa");
+		word = word.replace("rh", "r");
 
 		// remove consecutive characters
 		char lastChar = word.charAt(0);
